@@ -12,9 +12,8 @@ Provides a REST API to a database of students and correlated information with th
  |   README.md      // this file
  |   pom.xml        // dependencies and such
  |   ... 
- |
  |---src
- |   |--main
+     |--main
         |-- java
             |--com.example.demo
                |--domain
@@ -36,13 +35,12 @@ Provides a REST API to a database of students and correlated information with th
             |--application.properties
             |--schema.sql       // sql to create db
             |--import.sql       // sql to load basic data into db
- |   |--test        // ought to mirror main, but unit tests aren't written yet
+            | ...
+     |--test        // ought to mirror main, but unit tests aren't written yet
+     |-- ...
  |
  |---target         // contains compiled .class files
- |   |- ..etc..
- |
- |
- |
+     |-- ...
 ```
 
 ## Setup / Details
