@@ -43,7 +43,4 @@ public class StudentsController {
                 relationshipsRepo, coursesRepo, transcriptRepo);
         return service.getGradesByCourse(course).toString();
     }
-
-    // TODO: Basic put/get functions for testing
-
 }

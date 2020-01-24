@@ -1,7 +1,6 @@
 package com.example.demo.domain.services;
 
 import com.example.demo.domain.model.*;
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.*;
 import com.google.gson.JsonObject;
 
@@ -25,7 +24,6 @@ public class Services {
     }
 
     // Return a student's guardians and courses.
-    // If student doesn't exist, throws ResourceNotFoundException
     public JsonObject getAssociatedFeatures(String name) {
         // Get student id and then match through bridge tables
         Integer studentSid = this.studRepo.findByName(name).getSid();
