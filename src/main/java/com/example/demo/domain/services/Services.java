@@ -3,11 +3,9 @@ package com.example.demo.domain.services;
 import com.example.demo.domain.model.*;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.*;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Services {
@@ -29,12 +27,20 @@ public class Services {
     // Return a student's guardians and courses.
     // If student doesn't exist, throws ResourceNotFoundException
     public JsonObject getAssociatedFeatures(String name) {
+        // Get student id and then match through bridge tables
+        Integer studentSid = this.studRepo.findByName(name).getSid();
+        List<Relationships> matching_gid = this.relRepo.findBySid(studentSid);
+        List<Transcript> matching_cid = this.transRepo.findBySid(studentSid);
+        // For each match, find appropriate guardian / course title
+        List<String> guardians = new ArrayList<>();
+        for (Relationships relation: matching_gid)
+            guardians.add(this.guardRepo.findByGid(relation.getGid()).getName());
+        List<String> courses = new ArrayList<>();
+        for (Transcript course : matching_cid)
+            courses.add(this.courseRepo.findByCid(course.getCid()).getTitle());
+
+        // Build Response
         JsonObject response = new JsonObject();
-        List<String> guardians = this.studRepo.findGuardians(name);
-        List<String> courses = this.studRepo.findCourses(name);
-        if (guardians.isEmpty() && courses.isEmpty()) {
-            throw new ResourceNotFoundException("Student", "name", name);
-        }
         response.addProperty("name", name);
         response.addProperty("guardians", guardians.toString());
         response.addProperty("courses", courses.toString());
@@ -43,14 +49,16 @@ public class Services {
 
     // Return all students with a particular grade
     public JsonObject getStudentsWithGrade(String course_title, grade_t grade) {
-        JsonObject response = new JsonObject();
+        // Get course number and then match through bridge table
         Integer course_no = this.courseRepo.findByTitle(course_title).getCid();
-
         List<Transcript> matching_grades = this.transRepo.findByGradeAndCid(grade, course_no);
+        // For each match, find appropriate grade
         List<String> students = new ArrayList<>();
         for (Transcript match : matching_grades) {
             students.add(this.studRepo.findBySid(match.getSid()).getName());
         }
+        // Build response
+        JsonObject response = new JsonObject();
         response.addProperty("course_title", course_title);
         response.addProperty("cid", course_no);
         response.addProperty("grade", grade.toString());
@@ -59,14 +67,16 @@ public class Services {
     }
 
     public JsonObject getGradesByCourse(String course_title) {
-        JsonObject response = new JsonObject();
+        // Filter by Course Number and grades
         Integer course_no = this.courseRepo.findByTitle(course_title).getCid();
         List<Transcript> allGrades = this.transRepo.findByCid(course_no);
 
+        // Count number of each grade and build response
         Integer[] counts = {0,0,0,0,0};
         for (Transcript grade : allGrades) {
             counts[grade.getGrade().ordinal()]++;
         }
+        JsonObject response = new JsonObject();
         response.addProperty("course_title", course_title);
         response.addProperty("cid", course_no);
         for (grade_t grade : grade_t.values()) {

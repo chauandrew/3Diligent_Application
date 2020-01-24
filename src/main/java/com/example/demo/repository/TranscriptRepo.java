@@ -12,4 +12,5 @@ import java.util.List;
 public interface TranscriptRepo extends JpaRepository<Transcript, TranscriptId> {
     public List<Transcript> findByGradeAndCid(grade_t grade, Integer cid);
     public List<Transcript> findByCid(Integer cid);
+    public List<Transcript> findBySid(Integer sid);
 }

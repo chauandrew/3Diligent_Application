@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GuardiansRepo extends JpaRepository<Guardians, Integer> {
-
+    public Guardians findByGid(Integer gid);
 }
