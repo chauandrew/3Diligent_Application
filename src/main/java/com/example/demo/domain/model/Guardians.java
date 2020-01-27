@@ -12,6 +12,13 @@ public class Guardians {
     @Column(name="name")
     private String name;
 
+    // Constructors
+    public Guardians(){}
+    public Guardians(Integer gid, String name) {
+        this.gid = gid;
+        this.name = name;
+    }
+
     // Getters and setters
     public Integer getGid() {
         return gid;

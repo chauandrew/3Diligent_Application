@@ -3,6 +3,7 @@ package com.example.demo.domain.model;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import javax.management.relation.Relation;
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +15,13 @@ public class Relationships {
 
     @Id @Column(name="gid")
     private Integer gid;
+
+    // constructors
+    public Relationships(){}
+    public Relationships(Integer sid, Integer gid) {
+        this.sid = sid;
+        this.gid = gid;
+    }
 
     // Getters and setters
     public Integer getGid() {

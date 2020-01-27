@@ -3,17 +3,19 @@ package com.example.demo.domain.services;
 import com.example.demo.domain.model.*;
 import com.example.demo.repository.*;
 import com.google.gson.JsonObject;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Services {
-    private StudentsRepo studRepo;
-    private GuardiansRepo guardRepo;
-    private RelationshipsRepo relRepo;
-    private CoursesRepo courseRepo;
-    private TranscriptRepo transRepo;
+    @Autowired StudentsRepo studRepo;
+    @Autowired GuardiansRepo guardRepo;
+    @Autowired RelationshipsRepo relRepo;
+    @Autowired CoursesRepo courseRepo;
+    @Autowired TranscriptRepo transRepo;
 
+    public Services() {}
     public Services(StudentsRepo s, GuardiansRepo g, RelationshipsRepo r,
                     CoursesRepo c, TranscriptRepo t){
         this.studRepo = s;

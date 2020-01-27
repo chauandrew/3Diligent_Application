@@ -27,6 +27,12 @@ public class Students {
             inverseJoinColumns={@JoinColumn(name="cid")})
     private Set<Courses> courses;
 
+    // construtors
+    public Students() {}
+    public Students(Integer sid, String name) {
+        this.sid = sid;
+        this.name = name;
+    }
 
     // Getters and setters
     public Integer getSid() { return sid; }

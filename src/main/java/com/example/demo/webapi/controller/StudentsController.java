@@ -23,6 +23,7 @@ public class StudentsController {
     public String getGuardiansAndGradesByName(@PathVariable(value = "name") String name) {
         Services service = new Services(studentsRepo, guardiansRepo,
                                     relationshipsRepo, coursesRepo, transcriptRepo);
+//        Services service = new Services();
         return service.getAssociatedFeatures(name).toString();
     }
 
@@ -33,6 +34,7 @@ public class StudentsController {
             @PathVariable(value="grade") grade_t grade) {
         Services service = new Services(studentsRepo, guardiansRepo,
                 relationshipsRepo, coursesRepo, transcriptRepo);
+//        Services service = new Services();
         return service.getStudentsWithGrade(course, grade).toString();
     }
 
@@ -41,6 +43,7 @@ public class StudentsController {
     public String getGradesByCourse(@PathVariable(value="course") String course) {
         Services service = new Services(studentsRepo, guardiansRepo,
                 relationshipsRepo, coursesRepo, transcriptRepo);
+//        Services service = new Services();
         return service.getGradesByCourse(course).toString();
     }
 }

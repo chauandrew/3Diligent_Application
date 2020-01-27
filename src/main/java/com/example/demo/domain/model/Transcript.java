@@ -14,6 +14,14 @@ public class Transcript {
     @Enumerated(EnumType.STRING)
     private grade_t grade;
 
+    // Constructors
+    public Transcript() {}
+    public Transcript(Integer sid, Integer cid, grade_t grade) {
+        this.sid = sid;
+        this.cid = cid;
+        this.grade = grade;
+    }
+
     // Getters and setters
     public Integer getSid() { return sid; }
     public Integer getCid() { return cid; }

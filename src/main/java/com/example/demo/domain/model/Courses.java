@@ -16,6 +16,14 @@ public class Courses {
     @Column(name="title")
     private String title;
 
+    // Constructors
+    public Courses() {}
+    public Courses(Integer cid, String subject, String title) {
+        this.cid = cid;
+        this.subject = subject;
+        this.title = title;
+    }
+
     // Getters and setters
     public Integer getCid() { return cid; }
     public String getTitle() { return title; }
